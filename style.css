@@ -137,15 +137,18 @@ img {
 .input {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2em;
+}
+
+.input:not(:last-child) {
+  margin-bottom: 1.5em;
 }
 
 .input label {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .input input {
-  height: 50px;
+  height: 55px;
   padding: 0 1em;
   outline: none;
   border: 1px solid var(--light-gray);
@@ -161,6 +164,16 @@ img {
 
 .input .invalid {
   border: 1px solid var(--strawberry-red);
+}
+
+.input-detail {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-detail .invalid-message {
+  color: var(--strawberry-red);
+  font-weight: 500;
 }
 
 .btn-group {
@@ -191,7 +204,10 @@ img {
 .btn:hover {
   opacity: 0.8;
 }
-
+.btn-next--disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
 .btn-back {
   background: none;
   padding: 1em 0;
@@ -228,6 +244,10 @@ img {
   cursor: pointer;
 }
 
+#yearly {
+  display: none;
+}
+
 .billing-type:hover {
   border: 1px solid var(--purplish-blue);
 }
@@ -248,6 +268,10 @@ img {
 
 .billing-type h3 {
   font-weight: 500;
+}
+
+.billing-type h5 {
+  font-weight: 400;
 }
 
 .duration {
@@ -310,6 +334,10 @@ img {
 }
 
 .duration:has(input:not(:checked)) .type:first-child {
+  color: var(--marine-blue);
+}
+
+.duration:has(input:checked) .type:last-child {
   color: var(--marine-blue);
 }
 
