@@ -83,7 +83,7 @@
                   <div class="invalid-message"></div>
                 </div>
                 <input
-                  type="tel"
+                  type="number"
                   placeholder="e.g. +1 234 567 890"
                   id="phoneNo"
                   name="phoneNo"
@@ -126,7 +126,7 @@
                   <img src="assets/images/icon-arcade.svg" alt="" />
                   <div class="bill-details">
                     <h3 class="bill-name">Arcade</h3>
-                    <p>$<span class="bill-price">90</span>/yr</p>
+                    <p>$<span class="bill-price">90</span>/mo</p>
                     <h5>2 months free</h5>
                   </div>
                 </div>
@@ -134,7 +134,7 @@
                   <img src="assets/images/icon-advanced.svg" alt="" />
                   <div class="bill-details">
                     <h3 class="bill-name">Advanced</h3>
-                    <p>$<span class="bill-price">120</span>/yr</p>
+                    <p>$<span class="bill-price">120</span>/mo</p>
                     <h5>2 months free</h5>
                   </div>
                 </div>
@@ -142,7 +142,7 @@
                   <img src="assets/images/icon-pro.svg" alt="" />
                   <div class="bill-details">
                     <h3 class="bill-name">Pro</h3>
-                    <p>$<span class="bill-price">150</span>/yr</p>
+                    <p>$<span class="bill-price">150</span>/mo</p>
                     <h5>2 months free</h5>
                   </div>
                 </div>
@@ -167,117 +167,55 @@
             <div class="form-step form-three" data-stepdetails="3">
               <h1>Pick add-ons</h1>
               <p>Add-ons help enhance your gaming experience.</p>
-              <div
-                class="add-ons-duration"
-                id="monthly-addons"
-                data-duration="monthly"
-              >
-                <div class="add-ons">
-                  <div class="description">
-                    <input
-                      type="checkbox"
-                      class="add-ons-type"
-                      id="add-ons1"
-                      name="add-ons1"
-                      value="Online Service"
-                      checked
-                    />
-                    <div>
-                      <label for="add-ons1">Online service</label><br />
-                      <p>Access to multiplayer games</p>
-                    </div>
+              <div class="add-ons">
+                <div class="description">
+                  <input
+                    type="checkbox"
+                    class="add-ons-type"
+                    id="add-ons1"
+                    name="add-ons1"
+                    value="Online Service"
+                    checked
+                  />
+                  <div>
+                    <label for="add-ons1">Online service</label><br />
+                    <p>Access to multiplayer games</p>
                   </div>
-                  <span>+$<span class="service-price">1</span>/mo</span>
                 </div>
-                <div class="add-ons">
-                  <div class="description">
-                    <input
-                      type="checkbox"
-                      class="add-ons-type"
-                      id="add-ons2"
-                      name="add-ons2"
-                      value="Larger storage"
-                      checked
-                    />
-                    <div>
-                      <label for="add-ons2">Larger storage</label><br />
-                      <p>Extra 1TB of cloud save</p>
-                    </div>
-                  </div>
-                  <span>+$<span class="service-price">2</span>/mo</span>
-                </div>
-                <div class="add-ons">
-                  <div class="description">
-                    <input
-                      type="checkbox"
-                      class="add-ons-type"
-                      id="add-ons3"
-                      name="add-ons3"
-                      value="Customizable Profile"
-                    />
-                    <div>
-                      <label for="add-ons1">Customizable Profile</label><br />
-                      <p>Custom theme on your profile</p>
-                    </div>
-                  </div>
-                  <span>+$<span class="service-price">2</span>/mo</span>
-                </div>
+                <span>+$<span class="service-price">1</span>/mo</span>
               </div>
-              <div
-                class="add-ons-duration"
-                id="yearly-addons"
-                data-duration="yearly"
-              >
-                <div class="add-ons">
-                  <div class="description">
-                    <input
-                      type="checkbox"
-                      class="add-ons-type"
-                      id="add-ons4"
-                      name="add-ons4"
-                      value="Online Service"
-                      checked
-                    />
-                    <div>
-                      <label for="add-ons4">Online service</label><br />
-                      <p>Access to multiplayer games</p>
-                    </div>
+              <div class="add-ons">
+                <div class="description">
+                  <input
+                    type="checkbox"
+                    class="add-ons-type"
+                    id="add-ons2"
+                    name="add-ons2"
+                    value="Larger storage"
+                    checked
+                  />
+                  <div>
+                    <label for="add-ons2">Larger storage</label><br />
+                    <p>Extra 1TB of cloud save</p>
                   </div>
-                  <span>+$<span class="service-price">10</span>/yr</span>
                 </div>
-                <div class="add-ons">
-                  <div class="description">
-                    <input
-                      type="checkbox"
-                      class="add-ons-type"
-                      id="add-ons5"
-                      name="add-ons5"
-                      value="Larger storage"
-                      checked
-                    />
-                    <div>
-                      <label for="add-ons5">Larger storage</label><br />
-                      <p>Extra 1TB of cloud save</p>
-                    </div>
+                <span>+$<span class="service-price">2</span>/mo</span>
+              </div>
+              <div class="add-ons">
+                <div class="description">
+                  <input
+                    type="checkbox"
+                    class="add-ons-type"
+                    id="add-ons3"
+                    name="add-ons3"
+                    value="Customizable Profile"
+                  />
+                  <div>
+                    <label for="add-ons1">Customizable Profile</label><br />
+                    <p>Custom theme on your profile</p>
                   </div>
-                  <span>+$<span class="service-price">20</span>/yr</span>
                 </div>
-                <div class="add-ons">
-                  <div class="description">
-                    <input
-                      type="checkbox"
-                      class="add-ons-type"
-                      id="add-ons6"
-                      name="add-ons6"
-                      value="Customizable Profile"
-                    />
-                    <div>
-                      <label for="add-ons6">Customizable Profile</label><br />
-                      <p>Custom theme on your profile</p>
-                    </div>
-                  </div>
-                  <span>+$<span class="service-price">20</span>/yr</span>
-                </div>
+                <span>+$<span class="service-price">2</span>/mo</span>
               </div>
             </div>
             <!-- Step 3 end -->
@@ -293,7 +231,7 @@
                     <h3 class="plan-name-confirm">Arcade (Monthly)</h3>
                     <button type="button" class="change">Change</button>
                   </div>
-                  <span class="plan-price-confirm">$9/mo</span>
+                  <span>$<span class="plan-price-confirm">9</span>/mo</span>
                 </div>
                 <hr />
                 <div class="services">
@@ -309,7 +247,7 @@
               </div>
               <div class="total">
                 <p>Total (per month/year)</p>
-                <span class="total-price">$9/mo</span>
+                <span>$<span class="total-price"></span>/mo</span>
               </div>
             </div>
             <!-- Step 4 end -->

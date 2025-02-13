@@ -13,18 +13,13 @@ const planName = document.querySelector(".plan-name-confirm");
 const planPrice = document.querySelector(".plan-price-confirm");
 const monthlyPlan = document.getElementById("monthly");
 const yearlyPlan = document.getElementById("yearly");
-const monthlyAddOns = document.getElementById("monthly-addons");
-const yearlyAddOns = document.getElementById("yearly-addons");
 const addOns = document.querySelectorAll(".add-ons-type");
 const addOnsConfirm = document.querySelector(".services");
 const totalPrice = document.querySelector(".total-price");
 const userInput = {};
 let item = 0;
 
-console.log(addOns);
-for (let child in yearlyPlan.children) {
-  console.log(child);
-}
+console.log(addOnsConfirm);
 nextBtn.addEventListener("click", (e) => {
   // if (validateForm(fields)) {
 
@@ -60,22 +55,18 @@ goBackBtn.addEventListener("click", (e) => {
   if (item <= 0) {
     item = 0;
   }
-  // steps[item + 1].classList.remove("active");
   updateUI();
 });
 
 function updateUI() {
   steps.forEach((step, index) => {
-    if (stepDetails[index].className.includes("form-step--active")) {
-      // step.classList.remove("active");
+    if (step.className.includes("active")) {
+      step.classList.remove("active");
       stepDetails[index].classList.remove("form-step--active");
     }
     if (item == index) {
       step.classList.add("active");
       stepDetails[index].classList.add("form-step--active");
-    }
-    if (item < index) {
-      step.classList.remove("active");
     }
   });
 
@@ -104,53 +95,38 @@ function handlePlan() {
     userInput[plan.name] = "Yearly";
     yearlyPlan.style.display = "flex";
     monthlyPlan.style.display = "none";
-
-    yearlyAddOns.style.display = "block";
-    monthlyAddOns.style.display = "none";
   } else {
     userInput[plan.name] = "Monthly";
     yearlyPlan.style.display = "none";
     monthlyPlan.style.display = "flex";
-
-    yearlyAddOns.style.display = "none";
-    monthlyAddOns.style.display = "block";
   }
   console.log(plan);
 }
 
 handlePlan();
 
-function handleBillType() {
-  billType.forEach((el) => {
-    if (
-      el.classList.contains("active") &&
-      el.closest(".billing").id.toLowerCase() == userInput["plan"].toLowerCase()
-    ) {
-      userInput["billName"] = el.querySelector(".bill-name").innerHTML;
-      userInput["billPrice"] = el.querySelector(".bill-price").innerHTML;
+billType.forEach((el) => {
+  if (
+    el.classList.contains("active") &&
+    el.closest(".billing").id.toLowerCase() == userInput["plan"].toLowerCase()
+  ) {
+    userInput["billName"] = el.querySelector(".bill-name").innerHTML;
+    userInput["billPrice"] = el.querySelector(".bill-price").innerHTML;
+  }
+  el.addEventListener("click", (e) => {
+    for (let ele of billType) {
+      // console.log(ele);
+      ele.classList.remove("active");
     }
-    el.addEventListener("click", (e) => {
-      for (let ele of billType) {
-        ele.classList.remove("active");
-      }
-      let type = el.dataset.type;
-      monthlyPlan.children[type].classList.add("active");
-      yearlyPlan.children[type].classList.add("active");
-      // console.log(el.querySelector(".bill-name").innerHTML);
-      if (
-        el.classList.contains("active") &&
-        el.closest(".billing").id.toLowerCase() ==
-          userInput["plan"].toLowerCase()
-      ) {
-        userInput["billName"] = el.querySelector(".bill-name").innerHTML;
-        userInput["billPrice"] = el.querySelector(".bill-price").innerHTML;
-      }
-      // e.target.closest(".billing-type").classList.add("active");
-      updateConfirm();
-    });
+    el.classList.add("active");
+    // console.log(el.querySelector(".bill-name").innerHTML);
+    userInput["billName"] = el.querySelector(".bill-name").innerHTML;
+    userInput["billPrice"] = el.querySelector(".bill-price").innerHTML;
+    // e.target.closest(".billing-type").classList.add("active");
+    updateConfirm();
   });
-}
-handleBillType();
+});
+
 userInput["add-ons"] = {};
 function handleAddOns() {
   addOns.forEach((el) => {
@@ -158,11 +134,7 @@ function handleAddOns() {
       .closest(".add-ons")
       .querySelector(".service-price").innerHTML;
 
-    if (
-      el.checked &&
-      el.closest(".add-ons-duration").dataset.duration.toLowerCase() ==
-        userInput["plan"].toLowerCase()
-    ) {
+    if (el.checked) {
       userInput["add-ons"] = {
         ...userInput["add-ons"],
         [el.name]: { name: el.value, price: servicePrice },
@@ -181,17 +153,11 @@ function handleAddOnsConfirm() {
   //   console.log(el);
   // });
   addOnsConfirm.innerHTML = "";
-  let duration = "";
-  if (userInput["plan"] == "Monthly") {
-    duration = "mo";
-  } else {
-    duration = "yr";
-  }
   for (let key in userInput["add-ons"]) {
     // console.log(userInput["add-ons"][key]);
     addOnsConfirm.innerHTML += `<div class="service">
                     <p>${userInput["add-ons"][key]["name"]}</p>
-                    <span>+$${userInput["add-ons"][key]["price"]}/${duration}</span>
+                    <span>+$${userInput["add-ons"][key]["price"]}/mo</span>
                   </div>`;
   }
 }
@@ -246,21 +212,7 @@ form.addEventListener("input", (e) => {
   // }
 
   if (e.target.name == "plan") {
-    // billType.forEach((el, index) => {
-    //   if (
-    //     el.closest(".billing").id.toLowerCase() ==
-    //       userInput["plan"].toLowerCase() &&
-    //     el.classList.contains("active")
-    //   ) {
-    //     // el.classList.remove("active");
-    //     console.log(index);
-    //     if(index)
-    //   }
-    // });
     handlePlan();
-    handleBillType();
-    handleAddOns();
-    handleAddOnsConfirm();
   }
 
   if (e.target.className == "add-ons-type") {
@@ -365,13 +317,8 @@ function calculateTotal() {
 
 function updateConfirm() {
   planName.innerHTML = `${userInput["billName"]} (${userInput["plan"]})`;
-  if (userInput["plan"] == "Monthly") {
-    planPrice.innerHTML = `$${userInput["billPrice"]}/mo`;
-    totalPrice.innerHTML = `$${calculateTotal()}/mo`;
-  } else {
-    planPrice.innerHTML = `$${userInput["billPrice"]}/yr`;
-    totalPrice.innerHTML = `$${calculateTotal()}/yr`;
-  }
+  planPrice.innerHTML = userInput["billPrice"];
+  totalPrice.innerHTML = calculateTotal();
   console.log(calculateTotal());
 }
 updateConfirm();
