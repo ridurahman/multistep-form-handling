@@ -21,48 +21,33 @@ const totalPrice = document.querySelector(".total-price");
 const userInput = {};
 let item = 0;
 
-console.log(addOns);
-for (let child in yearlyPlan.children) {
-  console.log(child);
-}
+// //////////////////////////////////////////////////
+//  Increment item to forward step and go to next form when next button is clicked
+// //////////////////////////////////////////////////
 nextBtn.addEventListener("click", (e) => {
-  // if (validateForm(fields)) {
-
   item++;
   let fields = stepDetails[item].querySelectorAll("input");
   if (item >= steps.length - 1) {
     item = steps.length - 1;
   }
-  // console.log(item);
-  // console.log(stepDetails[item]);
   updateUI();
-  // console.log(fields);
-  // }
-
-  //
-  // if (steps.length === stepDetails.length) {
-  //   steps.forEach((step, index) => {
-  //     if (step.className === "step active") {
-  //       // step.classList.remove("active");
-  //       item = index + 1;
-  //     }
-  //     if (index == item) {
-  //       step.classList.add("active");
-  //       stepDetails[item - 1].classList.remove("form-step--active");
-  //       stepDetails[item].classList.add("form-step--active");
-  //     }
-  //   });
-  // }
 });
+
+// //////////////////////////////////////////////////
+//  Decrement item to backward step and go to previous form when goBack button is clicked
+// //////////////////////////////////////////////////
 
 goBackBtn.addEventListener("click", (e) => {
   item--;
   if (item <= 0) {
     item = 0;
   }
-  // steps[item + 1].classList.remove("active");
   updateUI();
 });
+
+// //////////////////////////////////////////////////
+//  Update form steps, fields and buttons according to current item
+// //////////////////////////////////////////////////
 
 function updateUI() {
   steps.forEach((step, index) => {
@@ -91,13 +76,19 @@ function updateUI() {
   }
 }
 
+// //////////////////////////////////////////////////
+//  Hide active form and display thanks message when confirm button is clicked
+// //////////////////////////////////////////////////
+
 confirmBtn.addEventListener("click", (e) => {
   stepDetails[3].classList.remove("form-step--active");
   buttonGroup.style.display = "none";
   thanks.style.display = "block";
 });
 
-// userInput["plan"] = "Monthly";
+// //////////////////////////////////////////////////
+//  Update userInput object and DOM when checkbox between monthly and yearly plan is toggled
+// //////////////////////////////////////////////////
 
 function handlePlan() {
   if (plan.checked) {
@@ -119,6 +110,10 @@ function handlePlan() {
 }
 
 handlePlan();
+
+// //////////////////////////////////////////////////
+//  Update userInput object and DOM when bill type is changed according to user click
+// //////////////////////////////////////////////////
 
 function handleBillType() {
   billType.forEach((el) => {
@@ -151,7 +146,14 @@ function handleBillType() {
   });
 }
 handleBillType();
+// //////////////////////////////////////////////////
+//  Taking an object inside userInput object to store add-ons
+// //////////////////////////////////////////////////
 userInput["add-ons"] = {};
+
+// //////////////////////////////////////////////////
+//  Changing userIput object by storing or deleting add-ons according to user check or uncheck
+// //////////////////////////////////////////////////
 function handleAddOns() {
   addOns.forEach((el) => {
     let servicePrice = el
@@ -176,6 +178,9 @@ function handleAddOns() {
 }
 handleAddOns();
 
+// //////////////////////////////////////////////////
+//  Updating add-ons inside confirm page according to user selected add-ons of previous page
+// //////////////////////////////////////////////////
 function handleAddOnsConfirm() {
   // userInput["add-ons"].forEach((el) => {
   //   console.log(el);
@@ -198,36 +203,26 @@ function handleAddOnsConfirm() {
 
 handleAddOnsConfirm();
 
+// //////////////////////////////////////////////////
+//  Updating item to go to plan page when user wants to change plan by clicking change button
+// //////////////////////////////////////////////////
 changeBtn.addEventListener("click", (e) => {
-  // stepDetails[3].classList.remove("form-step--active");
-  // steps[3].classList.remove("active");
-  // confirmBtn.style.display = "none";
-  // stepDetails[1].classList.add("form-step--active");
-  // steps[1].classList.add("active");
-  // nextBtn.style.display = "block";
   item = 1;
   updateUI();
 });
-// console.log(item);
-// let validCount = 0;
+
+// //////////////////////////////////////////////////
+//  Validating form, storing user data into userInput object and calling function to reflect changes in DOM according to user input
+// //////////////////////////////////////////////////
 form.addEventListener("input", (e) => {
   let fields = stepDetails[item].querySelectorAll("input");
-  // for (let field of fields) {
 
   if (e.target.type !== "checkbox") {
     if (validateForm(e.target)) {
       userInput[e.target.name] = e.target.value;
-      // validCount++;
     }
-    // else if (userInput[e.target.name]) {
-    //   delete userInput[e.target.name];
-    // }
-
-    // }
-    // console.log(fields);
     let validity = true;
     for (let field of fields) {
-      // console.log(field.classList);
       if (field.classList.contains("invalid") || !userInput[field.name]) {
         validity = false;
       }
@@ -239,24 +234,7 @@ form.addEventListener("input", (e) => {
     }
   }
 
-  // if (Object.keys(userInput).length == fields.length) {
-  //   nextBtn.classList.remove("btn-next--disabled");
-  // } else if (!nextBtn.classList.contains("btn-next--disabled")) {
-  //   nextBtn.classList.add("btn-next--disabled");
-  // }
-
   if (e.target.name == "plan") {
-    // billType.forEach((el, index) => {
-    //   if (
-    //     el.closest(".billing").id.toLowerCase() ==
-    //       userInput["plan"].toLowerCase() &&
-    //     el.classList.contains("active")
-    //   ) {
-    //     // el.classList.remove("active");
-    //     console.log(index);
-    //     if(index)
-    //   }
-    // });
     handlePlan();
     handleBillType();
     handleAddOns();
@@ -268,19 +246,16 @@ form.addEventListener("input", (e) => {
     handleAddOnsConfirm();
   }
   updateConfirm();
-  console.log(userInput);
-  // field.addEventListener("change", (e) => {
-  // validateForm(fields);
-  // });
-  // if(e.target.matches(""))
 });
 
+// //////////////////////////////////////////////////
+//  Validating user name, email and phone no to ensure there currect pattern and making tiny changes in the input fields to enhance user experience
+// //////////////////////////////////////////////////
 function validateForm(field) {
   const name = document.getElementById("name");
   const email = document.getElementById("email");
   const phoneNo = document.getElementById("phoneNo");
   let isValid = true;
-  // console.log(field == name);
   let invalidfield = field.closest(".input");
   if (field.value == "") {
     field.classList.add("invalid");
@@ -290,71 +265,71 @@ function validateForm(field) {
   } else if (field == name) {
     if (name.value != "" && !isValidName(name.value)) {
       field.classList.add("invalid");
+      field.classList.remove("valid");
       name.closest(".input").querySelector(".invalid-message").innerHTML =
         "Please enter a valid name!";
       isValid = false;
     } else {
       field.classList.remove("invalid");
+      field.classList.add("valid");
       name.closest(".input").querySelector(".invalid-message").innerHTML = "";
     }
   } else if (field == email) {
     if (email.value != "" && !isValidEmail(email.value)) {
       field.classList.add("invalid");
+      field.classList.remove("valid");
       email.closest(".input").querySelector(".invalid-message").innerHTML =
         "Please enter a valid email address!";
       isValid = false;
     } else {
       field.classList.remove("invalid");
+      field.classList.add("valid");
       email.closest(".input").querySelector(".invalid-message").innerHTML = "";
     }
   } else if (field == phoneNo) {
     if (phoneNo.value != "" && !isValidPhoneNo(phoneNo.value)) {
       field.classList.add("invalid");
+      field.classList.remove("valid");
       phoneNo.closest(".input").querySelector(".invalid-message").innerHTML =
         "Please enter a valid phone number (10 digits)!";
       isValid = false;
     } else {
       field.classList.remove("invalid");
+      field.classList.add("valid");
       phoneNo.closest(".input").querySelector(".invalid-message").innerHTML =
         "";
     }
   }
-  console.log(isValid);
   return isValid;
 }
 
-// function isEmpty(fields) {
-//   let empty = false;
-//   for (let field of fields) {
-//     let invalidfield = field.closest(".input");
-//     if (field.value == "") {
-//       field.classList.add("invalid");
-//       invalidfield.querySelector(".invalid-message").innerHTML =
-//         "This field is required";
-//       empty = true;
-//     } else {
-//       invalidfield.querySelector(".invalid-message").innerHTML = "";
-//       field.classList.remove("invalid");
-//     }
-//   }
-//   return empty;
-// }
-
+// //////////////////////////////////////////////////
+//  Ensuring currect name pattern using regular expression
+// //////////////////////////////////////////////////
 function isValidName(name) {
   let namePattern = /^\s*([A-Za-z]{1,}([\.,] |[-']| ?))+\.?\s*$/;
   return namePattern.test(name);
 }
 
+// //////////////////////////////////////////////////
+//  Ensuring currect email pattern using regular expression
+// //////////////////////////////////////////////////
 function isValidEmail(email) {
   let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   return emailPattern.test(email);
 }
 
+// //////////////////////////////////////////////////
+//  Ensuring currect phone no. pattern using regular expression
+// //////////////////////////////////////////////////
 function isValidPhoneNo(phoneNo) {
   let phonePattern = /^[0-9]{10}$/;
   return phonePattern.test(phoneNo);
 }
 
+// //////////////////////////////////////////////////
+//  Calculating total cost including user selected plan and add-ons
+// //////////////////////////////////////////////////
 function calculateTotal() {
   let servicesPrice = 0;
   for (let key in userInput["add-ons"]) {
@@ -363,6 +338,9 @@ function calculateTotal() {
   return Number(userInput["billPrice"]) + servicesPrice;
 }
 
+// //////////////////////////////////////////////////
+//  Making tiny changes in UI to display prices in correct form
+// //////////////////////////////////////////////////
 function updateConfirm() {
   planName.innerHTML = `${userInput["billName"]} (${userInput["plan"]})`;
   if (userInput["plan"] == "Monthly") {

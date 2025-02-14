@@ -12,6 +12,7 @@
   --magnolia: hsl(217, 100%, 97%);
   --alabaster: hsl(231, 100%, 99%);
   --white: hsl(0, 0%, 100%);
+  --green: hsl(139, 81%, 22%);
 }
 
 * {
@@ -168,6 +169,10 @@ img {
 
 .input .invalid {
   border: 1px solid var(--strawberry-red);
+}
+
+.input .valid {
+  border: 1px solid var(--green);
 }
 
 .input-detail {
